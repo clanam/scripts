@@ -1,0 +1,34 @@
+#
+# This pre-commit hook lint-fixes all altered js files and optionally adds them
+# to git. To configure/disable parts of it, set one of the following env
+# variables, e.g. in your ~/.bash_profile file.
+#
+# export SQUIRREL_PRECOMMIT_SKIP_LINT=true # skip all lint-fixing
+# export SQUIRREL_PRECOMMIT_ENABLE_GIT_ADD=true # optionally add linted files to the git
+#
+
+root_dir=`git rev-parse --show-toplevel`
+altered_js_files=`git diff HEAD --cached --name-only --diff-filter=ACM | grep .js$ | grep -v .eslintrc.js$`
+
+if ! [ -z "$altered_js_files" ]
+then
+  if ! [ -z "$SQUIRREL_PRECOMMIT_SKIP_LINT" ]
+  then
+    printf "   🍵 Skipping lint due to SQUIRREL_PRECOMMIT_SKIP_LINT environment variable\n"
+    exit 0
+  fi
+
+  printf "   🧹 linting js files with --fix...\n"
+  # Manually clean up js files. If it fails, use || to ignore the error (we don't
+  # want to block the commit). Let lint print its warnings
+  $root_dir/node_modules/.bin/eslint --fix $altered_js_files || printf ""
+
+  if ! [ -z "$SQUIRREL_PRECOMMIT_ENABLE_GIT_ADD" ]
+  then
+    printf "   🍵 Adding linted files to git (remove SQUIRREL_PRECOMMIT_ENABLE_GIT_ADD env var to disable)\n"
+    for file in $altered_js_files
+    do
+      git add $file
+    done
+  fi
+fi
