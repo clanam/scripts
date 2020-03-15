@@ -1,0 +1,17 @@
+root_dir=`git rev-parse --show-toplevel`
+altered_js_ts_files=`git diff HEAD --cached --name-only --diff-filter=ACM | grep .[jt]s$ | grep -v .eslintrc.js$`
+
+if ! [ -z "$altered_js_ts_files" ]
+then
+  printf "   🧹 linting js & ts files with --fix...\n"
+  # Manually clean up files. If it fails, use || to ignore the error (we don't
+  # want to block the commit). Let lint print its warnings
+  $root_dir/node_modules/.bin/eslint --fix $altered_js_ts_files || printf ""
+
+  printf "   🍵 Adding linted files to git\n"
+  for file in $altered_js_ts_files
+  do
+    git add $file
+  done
+fi
+
