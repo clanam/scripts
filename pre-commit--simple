@@ -1,7 +1,5 @@
 #
-# This pre-commit hook lint-fixes all altered js files and optionally adds them
-# to git. To configure/disable parts of it, set one of the following env
-# variables, e.g. in your ~/.bash_profile file.
+# This pre-commit hook lint-fixes all altered js files.
 #
 
 root_dir=`git rev-parse --show-toplevel`
