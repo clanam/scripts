@@ -2,8 +2,20 @@
 # This pre-commit hook lint-fixes all altered js files.
 #
 
+printf "   🧹 Beginning pre-commit...\n"
+
+starting_dir=$(pwd)
 root_dir=`git rev-parse --show-toplevel`
+
+cd $root_dir
+
 altered_js_files=`git diff HEAD --cached --name-only --diff-filter=ACM | grep .js$ | grep -v .eslintrc.js$`
+
+# eslint needs to be run from the directory with the node_modules folder because otherwise
+# it cannot find the prettier plugin, so replace "subdirectory/" with "./" if the js project
+# not in root
+# altered_js_files=$(echo "${altered_js_files//subdirectory/.}")
+
 
 if ! [ -z "$altered_js_files" ]
 then
@@ -18,3 +30,6 @@ then
     git add $file
   done
 fi
+
+# return to previous directory
+cd $starting_dir

@@ -7,7 +7,12 @@
 # export SQUIRREL_PRECOMMIT_ENABLE_GIT_ADD=true # optionally add linted files to the git
 #
 
+printf "   🧹 Beginning pre-commit...\n"
+
+starting_dir=$(pwd)
 root_dir=`git rev-parse --show-toplevel`
+cd $root_dir
+
 altered_js_files=`git diff HEAD --cached --name-only --diff-filter=ACM | grep .js$ | grep -v .eslintrc.js$`
 
 if ! [ -z "$altered_js_files" ]
@@ -32,3 +37,6 @@ then
     done
   fi
 fi
+
+# return to previous directory
+cd $starting_dir
