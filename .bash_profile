@@ -1,6 +1,29 @@
 # Git settings and aliases
 
-# git config core.hooksPath .hooks
+# Colors
+
+COLOR_RED="\033[31m"
+COLOR_YELLOW="\033[93m"
+COLOR_GREEN="\033[32m"
+COLOR_OCHRE="\033[38;5;95m"
+COLOR_BLUE="\033[1;49;36m"
+COLOR_MAGENTA="\e[35m"
+COLOR_WHITE="\033[37m"
+COLOR_RESET="\033[0m"
+BGCOLOR_WHITE="\033[7;49;39m"
+
+# Android Studio / React Native
+
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# Git
+
+git config --global color.ui true
+git config --global core.hooksPath .hooks
 git config --global push.default current
 
 git config --global alias.br      branch
@@ -23,6 +46,8 @@ git config --global alias.tou     checkout
 git config --global alias.ull     pull
 git config --global alias.ush     push
 
+# Useful aliases
+
 alias ba="vi ~/.bash_profile"
 alias ba2="source ~/.bash_profile"
 alias br="git br"
@@ -41,7 +66,6 @@ alias igt="git"
 alias igtsmash="gitsmash"
 alias log='git log --pretty=format:"%h  %ad  %<(20)%an  %s" --date=format:"%Y %b %d"'
 alias ls="ls -alF"
-alias move="mv"
 alias recent="git recent"
 alias st="git st"
 alias tarb="tarn"
@@ -49,12 +73,14 @@ alias tarn="yarn"
 alias yanr="yarn"
 alias yran="yarn"
 
+# Add all unsaved work to the previous git commit
 gitsmash() {
   local prev_msg="$(git log -1 --pretty=%B)"
   gitundo
   git commit -am "$prev_msg"
 }
 
+# Add unsaved work in staged files to the previous git commit
 softsmash() {
   local prev_msg="$(git log -1 --pretty=%B)"
   gitundo
