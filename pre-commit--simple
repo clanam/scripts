@@ -13,7 +13,7 @@ altered_js_files=`git diff HEAD --cached --name-only --diff-filter=ACM | grep .j
 
 # eslint needs to be run from the directory with the node_modules folder because otherwise
 # it cannot find the prettier plugin, so replace "subdirectory/" with "./" if the js project
-# not in root
+# not in root. Note: the double slash before "subdirectory" is to replace all instances.
 # altered_js_files=$(echo "${altered_js_files//subdirectory/.}")
 
 
