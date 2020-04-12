@@ -2,15 +2,15 @@
 
 # Colors
 
-COLOR_RED="\033[31m"
-COLOR_YELLOW="\033[93m"
-COLOR_GREEN="\033[32m"
-COLOR_OCHRE="\033[38;5;95m"
-COLOR_BLUE="\033[1;49;36m"
+COLOR_RED="\e[31m"
+COLOR_YELLOW="\e[93m"
+COLOR_GREEN="\e[32m"
+COLOR_OCHRE="\e[38;5;95m"
+COLOR_BLUE="\e[96m"
 COLOR_MAGENTA="\e[35m"
-COLOR_WHITE="\033[37m"
-COLOR_RESET="\033[0m"
-BGCOLOR_WHITE="\033[7;49;39m"
+COLOR_WHITE="\e[37m"
+COLOR_RESET="\e[0m"
+BGCOLOR_WHITE="\e[7;49;39m"
 
 # Android Studio / React Native
 
@@ -91,12 +91,11 @@ softsmash() {
 #    Override bash prompt    #
 # -------------------------- #
 
-# \e[0m is color reset
 # \W is current directory (short path)
 # \w is current directory (full path)
 # \u is current user
 
-export PS1="\e[96m\u\e[37m@\e[96m\w\e[0m: "
+export PS1="$COLOR_BLUE\u$COLOR_WHITE@$COLOR_BLUE\w$COLOR_RESET: "
 
 # ------------------- #
 #    Notes to self    #
