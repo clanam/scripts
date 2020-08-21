@@ -63,6 +63,7 @@ alias gitp="git"
 alias gti="git"
 alias gtismash="gitsmash"
 alias godot="/Applications/Godot.app/Contents/MacOS/Godot"
+alias guttest="godot -d -s --path $PWD addons/gut/gut_cmdln.gd" # must be run in project base dir
 alias home="cd ~/projects"
 alias igt="git"
 alias igtsmash="gitsmash"
